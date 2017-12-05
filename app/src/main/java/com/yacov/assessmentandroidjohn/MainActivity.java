@@ -48,29 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        botaoAd = (Button) findViewById(R.id.btnSaveID);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-2533529778744441/8574594488");
-
-        mInterstitialAd.setAdListener(new AdListener(){
-            @Override
-
-            public void onAdClosed() {
-                requestNewInterstitial();
-                Toast.makeText(MainActivity.this, "AdListener", Toast.LENGTH_SHORT).show();
-            }
-            });
-            requestNewInterstitial();
-    }
-
-
-
-    private void requestNewInterstitial() {
-            AdRequest adRequest = new AdRequest.Builder()
-                .build();
-
-            mInterstitialAd.loadAd(adRequest);
 
         nome = findViewById(R.id.nomeID);
         email =  findViewById(R.id.emailID);
@@ -86,6 +63,34 @@ public class MainActivity extends AppCompatActivity {
         SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("NNN.NNN.NNN-NN");
         MaskTextWatcher maskTextWatcher = new MaskTextWatcher(cpf, simpleMaskFormatter);
         cpf.addTextChangedListener((TextWatcher) maskTextWatcher);
+
+        botaoAd = (Button) findViewById(R.id.btnSaveID);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-2533529778744441/8574594488");
+
+        mInterstitialAd.setAdListener(new AdListener(){
+            @Override
+
+            public void onAdClosed() {
+                requestNewInterstitial();
+                Mensagem("Sucesso!");
+            }
+            });
+            requestNewInterstitial();
+
+        checkForStoragePermission();
+        Listar();
+    }
+
+
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
 
 
 
@@ -123,13 +128,6 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
-
-
-        checkForStoragePermission();
-        Listar();
-
-
-    }
 
 
     private boolean validateFields(){
