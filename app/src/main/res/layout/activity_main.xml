@@ -23,6 +23,9 @@
             android:layout_height="wrap_content"
             android:hint="Nome:"
             android:id="@+id/nomeID"
+            android:inputType="textPersonName"
+            android:digits="abcdefghijklmnopqrstuvwxyz
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ"
             />
     </android.support.design.widget.TextInputLayout>
 
