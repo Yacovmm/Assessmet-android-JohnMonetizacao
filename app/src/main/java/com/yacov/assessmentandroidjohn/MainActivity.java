@@ -148,14 +148,19 @@ public class MainActivity extends AppCompatActivity {
             senha.requestFocus();
         }else if (res = isEmptyField(senhaConfirmString)){
             senhaConfirm.requestFocus();
-        }else if (res = isEmptyField(cpfString)){
-            cpf.requestFocus();
+            senhaconfirmLayout.setErrorEnabled(true);
+            senhaconfirmLayout.setError("Campo Inválido");
         }else if (res = !senhaString.equals(senhaConfirmString)){
             senhaConfirm.requestFocus();
+            senhaconfirmLayout.setErrorEnabled(true);
+            senhaconfirmLayout.setError("Campo Inválido");
+        }else if (res = !isValidCpf(cpfString)){
+            cpf.requestFocus();
+            senhaconfirmLayout.setErrorEnabled(false);
         }
 
         if (res){
-            Mensagem("There are invalid or blank fields");
+            Mensagem("There is invalid or blank fields");
         }
         return res;
     }
@@ -168,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isValidEmail(String email){
         boolean resul = (!isEmptyField(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+        return resul;
+    }
+
+    private boolean isValidCpf(String cpf){
+        boolean resul = (!isEmptyField(cpf) && cpf.length() == 14);
         return resul;
     }
 
@@ -195,6 +205,8 @@ public class MainActivity extends AppCompatActivity {
     public void btnsave(View view){
 
         if (!validateFields()){
+
+            senhaconfirmLayout.setErrorEnabled(false);
 
             String lstrNomeArq;
             File arq;
@@ -249,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void Mensagem(String msg){
-        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     private void checkForStoragePermission() {
